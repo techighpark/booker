@@ -8,6 +8,6 @@ export default gql`
       password: String
       bio: String
       avatar: Upload
-    ): mutationResult!
+    ): MutationResult!
   }
 `;

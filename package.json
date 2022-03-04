@@ -30,15 +30,21 @@
   },
   "dependencies": {
     "@apollo/client": "^3.5.9",
+    "@graphql-tools/schema": "^8.3.2",
     "@prisma/client": "^3.10.0",
     "apollo-server": "^3.6.3",
     "apollo-server-core": "^3.6.3",
     "apollo-server-express": "^3.6.3",
+    "aws-sdk": "^2.1082.0",
     "bcrypt": "^5.0.1",
     "dotenv": "^16.0.0",
     "graphql": "^15.8.0",
+    "graphql-subscriptions": "^2.0.0",
     "graphql-tools": "^8.2.0",
+    "graphql-ws": "^5.6.2",
     "jsonwebtoken": "^8.5.1",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "subscriptions-transport-ws": "^0.11.0",
+    "ws": "^8.5.0"
   }
 }

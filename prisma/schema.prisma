@@ -10,36 +10,173 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Book {
-  id          Int      @id @default(autoincrement())
-  author      Author   @relation(fields: [authorId], references: [id])
-  title       String
-  subtitle    String?
-  publication Int?
-  genre       String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  authorId    Int
+model Author {
+  id           Int          @id @default(autoincrement())
+  fullName     String       @unique
+  nationality  String?
+  birth        Int?
+  photoProfile String?
+  books        Book[]
+  genres       Genre[]
+  follower     User[]
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  likes        AuthorLike[]
 }
 
-model Author {
-  id          Int      @id @default(autoincrement())
-  firstName   String?
-  lastName    String
-  nationality String?
-  birth       Int?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  books       Book[]
+model Book {
+  id          Int          @id @default(autoincrement())
+  title       String
+  subtitle    String?
+  publishedAt Int?
+  bookCover   String?
+  author      Author       @relation(fields: [authorId], references: [id])
+  genres      Genre[]
+  follower    User[]
+  reviews     BookReview[]
+  posts       Post[]
+  likes       BookLike[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  authorId Int
+  @@unique([authorId, title])
+}
+
+model Genre {
+  id      Int      @id @default(autoincrement())
+  genre   String   @unique
+  books   Book[]
+  authors Author[]
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  username  String   @unique
-  email     String   @unique
-  password  String
-  bio       String?
-  avatar    String?
+  id              Int          @id @default(autoincrement())
+  username        String       @unique
+  email           String       @unique
+  password        String
+  bio             String?
+  avatar          String?
+  followerUser    User[]       @relation("FollowRelation", references: [id])
+  followingUser   User[]       @relation("FollowRelation", references: [id])
+  followingAuthor Author[]
+  followingBook   Book[]
+  posts           Post[]
+  postLikes       PostLike[]
+  bookReviews     BookReview[]
+  authorLike      AuthorLike[]
+  bookLike        BookLike[]
+  rooms           Room[]
+  messages        Message[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Post {
+  id       Int        @id @default(autoincrement())
+  photo    String
+  caption  String?
+  user     User       @relation(fields: [userId], references: [id])
+  book     Book       @relation(fields: [bookId], references: [id])
+  hashtags Hashtag[]
+  likes    PostLike[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId Int
+  bookId Int
+
+  @@unique([bookId, userId])
+}
+
+model BookReview {
+  id     Int    @id @default(autoincrement())
+  review String
+  book   Book   @relation(fields: [bookId], references: [id])
+  user   User   @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  bookId Int
+  userId Int
+
+  @@unique([bookId, userId])
+}
+
+model Hashtag {
+  id      Int    @id @default(autoincrement())
+  hashtag String @unique
+  posts   Post[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model PostLike {
+  id   Int  @id @default(autoincrement())
+  user User @relation(fields: [userId], references: [id])
+  post Post @relation(fields: [postId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId Int
+  postId Int
+
+  @@unique([userId, postId])
+}
+
+model BookLike {
+  id   Int  @id @default(autoincrement())
+  user User @relation(fields: [userId], references: [id])
+  book Book @relation(fields: [bookId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId Int
+  bookId Int
+
+  @@unique([userId, bookId])
+}
+
+model AuthorLike {
+  id     Int    @id @default(autoincrement())
+  user   User   @relation(fields: [userId], references: [id])
+  author Author @relation(fields: [authorId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId   Int
+  authorId Int
+
+  @@unique([userId, authorId])
+}
+
+model Room {
+  id       Int       @id @default(autoincrement())
+  users    User[]
+  messages Message[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Message {
+  id      Int     @id @default(autoincrement())
+  payload String
+  read    Boolean @default(false)
+  user    User    @relation(fields: [userId], references: [id])
+  room    Room    @relation(fields: [roomId], references: [id])
+
+  userId Int
+  roomId Int
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
