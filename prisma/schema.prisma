@@ -69,6 +69,7 @@ model User {
   bookLike        BookLike[]
   rooms           Room[]
   messages        Message[]
+  comment         Comment[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -82,6 +83,7 @@ model Post {
   book     Book       @relation(fields: [bookId], references: [id])
   hashtags Hashtag[]
   likes    PostLike[]
+  comments Comment[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -90,6 +92,18 @@ model Post {
   bookId Int
 
   @@unique([bookId, userId])
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  payload   String
+  user      User     @relation(fields: [userId], references: [id])
+  post      Post     @relation(fields: [postId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId Int
+  postId Int
 }
 
 model BookReview {
