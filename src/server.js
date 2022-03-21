@@ -71,7 +71,7 @@ async function startServer() {
   app.use(logger("tiny"));
   apollo.applyMiddleware({ app, path: "/graphql" });
 
-  httpServer.listen(PORT, () => {
+  httpServer.listen(PORT || 4000, () => {
     console.log(`Server is now running on http://localhost:${PORT}/graphql`);
   });
 }
