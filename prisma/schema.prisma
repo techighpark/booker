@@ -30,7 +30,7 @@ model Book {
   subtitle    String?
   publishedAt Int?
   bookCover   String?
-  author      Author       @relation(fields: [authorId], references: [id])
+  author      Author       @relation(fields: [authorId], references: [id], onDelete: Cascade)
   genres      Genre[]
   follower    User[]
   reviews     BookReview[]
@@ -79,7 +79,7 @@ model Post {
   id       Int        @id @default(autoincrement())
   photo    String
   caption  String?
-  user     User       @relation(fields: [userId], references: [id])
+  user     User       @relation(fields: [userId], references: [id], onDelete: Cascade)
   book     Book       @relation(fields: [bookId], references: [id])
   hashtags Hashtag[]
   likes    PostLike[]
@@ -97,8 +97,8 @@ model Post {
 model Comment {
   id        Int      @id @default(autoincrement())
   payload   String
-  user      User     @relation(fields: [userId], references: [id])
-  post      Post     @relation(fields: [postId], references: [id])
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -109,8 +109,8 @@ model Comment {
 model BookReview {
   id     Int    @id @default(autoincrement())
   review String
-  book   Book   @relation(fields: [bookId], references: [id])
-  user   User   @relation(fields: [userId], references: [id])
+  book   Book   @relation(fields: [bookId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -132,8 +132,8 @@ model Hashtag {
 
 model PostLike {
   id   Int  @id @default(autoincrement())
-  user User @relation(fields: [userId], references: [id])
-  post Post @relation(fields: [postId], references: [id])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -146,8 +146,8 @@ model PostLike {
 
 model BookLike {
   id   Int  @id @default(autoincrement())
-  user User @relation(fields: [userId], references: [id])
-  book Book @relation(fields: [bookId], references: [id])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  book Book @relation(fields: [bookId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -160,8 +160,8 @@ model BookLike {
 
 model AuthorLike {
   id     Int    @id @default(autoincrement())
-  user   User   @relation(fields: [userId], references: [id])
-  author Author @relation(fields: [authorId], references: [id])
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  author Author @relation(fields: [authorId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -185,8 +185,8 @@ model Message {
   id      Int     @id @default(autoincrement())
   payload String
   read    Boolean @default(false)
-  user    User    @relation(fields: [userId], references: [id])
-  room    Room    @relation(fields: [roomId], references: [id])
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  room    Room    @relation(fields: [roomId], references: [id], onDelete: Cascade)
 
   userId Int
   roomId Int

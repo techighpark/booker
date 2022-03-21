@@ -8,6 +8,8 @@ export default {
         where: { id: postId },
         select: { userId: true },
       });
+      console.log(postCheck.userId);
+      console.log(loggedInUser.id);
       if (!postCheck) {
         return { ok: false, error: "Post not exist." };
       } else if (loggedInUser.id !== postCheck.userId) {

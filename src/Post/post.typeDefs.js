@@ -13,6 +13,7 @@ export default gql`
     totalLikes: Int!
     comments: [Comment]
     totalComments: Int!
+    isMine: Boolean!
     createdAt: String!
     updatedAt: String!
   }
@@ -20,6 +21,7 @@ export default gql`
   type Hashtag {
     id: Int!
     hashtag: String!
+    totalPosts: Int!
     createdAt: String!
     updatedAt: String!
   }

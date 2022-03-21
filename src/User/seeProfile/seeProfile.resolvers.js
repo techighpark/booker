@@ -11,7 +11,7 @@ export default {
           followingAuthor: { include: { books: true } },
           followingBook: { include: { author: true } },
           bookReviews: { include: { user: true } },
-          posts: true,
+          // posts: true,
         },
       });
       if (!userCheck) {

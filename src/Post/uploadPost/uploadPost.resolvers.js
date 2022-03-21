@@ -22,7 +22,7 @@ export default {
         if (caption) {
           hashObj = hashtagProcess(caption);
         }
-        await client.post.create({
+        const uploadPost = await client.post.create({
           data: {
             ...(photoUrl && { photo: photoUrl }),
             caption,
@@ -39,7 +39,7 @@ export default {
             }),
           },
         });
-        return { ok: true };
+        return { ok: true, id: uploadPost.id };
       }
     ),
   },

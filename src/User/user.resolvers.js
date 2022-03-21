@@ -37,5 +37,10 @@ export default {
     // rooms: ({ id }) => {
     //   client.room.findMany({ where: { users: { some: { id } } } });
     // },
+    posts: ({ id }) =>
+      client.post.findMany({
+        where: { userId: id },
+        orderBy: { createdAt: "desc" },
+      }),
   },
 };
