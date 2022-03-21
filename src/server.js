@@ -38,6 +38,7 @@ async function startServer() {
 
   const apollo = new ApolloServer({
     schema,
+    introspection: true,
     context: async ctx => {
       if (ctx.req) {
         return {
