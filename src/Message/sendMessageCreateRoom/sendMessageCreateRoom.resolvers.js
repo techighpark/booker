@@ -1,7 +1,7 @@
 import client from "../../client";
 import { NEW_MESSAGE } from "../../constant";
 import pubsub from "../../pubsub";
-import { protectedResolver } from "../../user/user.utils";
+import { protectedResolver } from "../../User/user.utils";
 
 export default {
   Mutation: {
