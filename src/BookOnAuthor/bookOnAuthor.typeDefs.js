@@ -5,7 +5,7 @@ export default gql`
     id: Int!
     fullName: String!
     nationality: String
-    birth: Int
+    birth: String
     photoProfile: String
     books: [Book]
     genres: [Genre]
