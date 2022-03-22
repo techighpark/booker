@@ -6,7 +6,7 @@ export default gql`
       id: Int!
       fullName: String
       nationality: String
-      birth: Int
+      birth: String
       photoProfile: Upload
     ): MutationResult!
   }

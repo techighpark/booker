@@ -1,0 +1,5 @@
+-- AlterTable
+ALTER TABLE "Author" ALTER COLUMN "birth" SET DATA TYPE TEXT;
+
+-- AlterTable
+ALTER TABLE "Book" ALTER COLUMN "publishedAt" SET DATA TYPE TEXT;

@@ -22,7 +22,7 @@ export default gql`
     id: Int!
     title: String!
     subtitle: String
-    publishedAt: Int
+    publishedAt: String
     bookCover: String
     author: Author!
     genres: [Genre]

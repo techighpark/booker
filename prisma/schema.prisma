@@ -14,7 +14,7 @@ model Author {
   id           Int          @id @default(autoincrement())
   fullName     String       @unique
   nationality  String?
-  birth        Int?
+  birth        String?
   photoProfile String?
   books        Book[]
   genres       Genre[]
@@ -28,7 +28,7 @@ model Book {
   id          Int          @id @default(autoincrement())
   title       String
   subtitle    String?
-  publishedAt Int?
+  publishedAt String?
   bookCover   String?
   author      Author       @relation(fields: [authorId], references: [id], onDelete: Cascade)
   genres      Genre[]

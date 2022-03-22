@@ -5,7 +5,8 @@ export default gql`
     registerAuthor(
       fullName: String!
       nationality: String
-      birth: Int
+      birth: String
+      photoProfile: Upload
     ): MutationResult!
   }
 `;

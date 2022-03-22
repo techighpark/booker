@@ -5,11 +5,10 @@ export default gql`
     registerBook(
       title: String!
       subtitle: String
-      publishedAt: Int
+      publishedAt: String
       authorName: String!
-      authorBirth: Int
-      authorNationality: String
       genres: [String]
+      bookCover: Upload
     ): MutationResult!
   }
 `;

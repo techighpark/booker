@@ -1,8 +1,12 @@
 import client from "../../client";
+import { uploadToS3 } from "../../shared/shared.utils";
 
 export default {
   Mutation: {
-    registerBook: async (_, { title, subtitle, publishedAt, authorName }) => {
+    registerBook: async (
+      _,
+      { title, subtitle, publishedAt, authorName, bookCover }
+    ) => {
       const authorCheck = await client.author.findUnique({
         where: { fullName: authorName },
       });
@@ -26,6 +30,14 @@ export default {
         return { ok: false, error: "Book already registered" };
       }
 
+      let bookCoverUrl = null;
+      if (bookCover) {
+        bookCoverUrl = await uploadToS3(
+          bookCover,
+          "administrator",
+          "bookCover"
+        );
+      }
       await client.book.create({
         data: {
           title,
@@ -34,6 +46,7 @@ export default {
           author: {
             connect: { fullName: authorName },
           },
+          ...(bookCoverUrl && { bookCover: bookCoverUrl }),
         },
         include: {
           author: true,
