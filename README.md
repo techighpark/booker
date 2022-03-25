@@ -1,3 +1,3 @@
 # Booker-Backend
 
-Booker Backend.
+Prisma, Apollo client, GraphQL
